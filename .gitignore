@@ -1,0 +1,24 @@
+# Archivos compilados
+*.class
+
+# Carpeta de construcción
+/build/
+/dist/
+
+# NetBeans
+/nbproject/private/
+/nbproject/build-impl.xml
+
+# Logs
+*.log
+
+# Archivos temporales
+*.tmp
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# IDEs (por si mezclas)
+.vscode/
+.idea/
