@@ -10,17 +10,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Permite realizat las operaciones CRUD en la entidad
+ * Permite realizar las operaciones CRUD en la entidad
  * user de la base de datos murach
  * @author fer_g
  */
 public class UserDB {
+    
     /**
      * Inserta un nuevo usuario en la bd
      * @param user
      * @return 
      */
-    
     public static int insert(User user) {
         // Obtiene una instancia del ConnectionPool para gestionar
         //las conexiones a la base de datos
@@ -103,6 +103,33 @@ public class UserDB {
             return null;
         } finally {
             DBUtil.closeResultSet(rs);
+            DBUtil.closePreparedStatement(ps);
+            pool.freeConnection(connection);
+        }
+    }//Fin del metodo get all users
+    
+    /**
+     * Elimina un usuario de la base de datos
+     * @param email // email del usuario a eliminar 
+     * @return 
+     */
+    public static int delete(String email) {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement ps = null;
+
+        String query = "DELETE FROM user "
+                + "WHERE Email = ?";
+        try {
+            ps = connection.prepareStatement(query);
+            ps.setString(1, email);
+
+            return ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+            Error.descripcion = e.getMessage();
+            return 0;
+        } finally {
             DBUtil.closePreparedStatement(ps);
             pool.freeConnection(connection);
         }
