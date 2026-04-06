@@ -133,5 +133,73 @@ public class UserDB {
             DBUtil.closePreparedStatement(ps);
             pool.freeConnection(connection);
         }
+    }//Fin del metodo delete
+    
+    /**
+     * Modifica los datos de un usuario existente
+     * @param user recibe un objeto de tipo user como parámetro
+     * @return 
+     */
+    public static int update(User user) {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement ps = null;
+
+        String query = "UPDATE user SET "
+                + "FirstName = ?, "
+                + "LastName = ? "
+                + "WHERE Email = ?";
+        try {
+            ps = connection.prepareStatement(query);
+            ps.setString(1, user.getFirstName());
+            ps.setString(2, user.getLastName());
+            ps.setString(3, user.getEmail());
+
+            return ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+            Error.descripcion = e.getMessage();
+            return 0;
+        } finally {
+            DBUtil.closePreparedStatement(ps);
+            pool.freeConnection(connection);
+        }
+    }//fin del método
+    
+    /**
+     * retorna los datos de un usuario que 
+     * concuerde con el email especificado
+     * @param email // email del usuario
+     * @return 
+     */
+    public static User findUserById(String email) {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        String query = "SELECT * FROM user "
+                + "WHERE Email = ?";
+        try {
+            ps = connection.prepareStatement(query);
+            ps.setString(1, email);
+            rs = ps.executeQuery();
+            User user = null;
+            if (rs.next()) {
+                user = new User();
+                user.setFirstName(rs.getString("FirstName"));
+                user.setLastName(rs.getString("LastName"));
+                user.setEmail(rs.getString("Email"));
+            }
+            return user;
+        } catch (SQLException e) {
+            System.out.println(e);
+            Error.descripcion = e.getMessage();
+            return null;
+        } finally {
+            DBUtil.closeResultSet(rs);
+            DBUtil.closePreparedStatement(ps);
+            pool.freeConnection(connection);
+        }
     }
 }

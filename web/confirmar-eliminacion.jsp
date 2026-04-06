@@ -25,8 +25,13 @@
     <body>
         <div class='container mt-5'>
             <div class='row'>
+                <div class='col-lg-6'>
+                    <h1>Confirmar Eliminación</h1>
+                </div>
+                <div class='col-lg-6 text-end'>
+                    <button class="btn btn-info" role="button" onclick='regresar();'>Listado de Usuarios</button>
+                </div>
                 <div class='col'>
-                    <h1 class='container'>Confirmar Eliminación</h1>
                     <hr>
                 </div>
             </div>
@@ -48,5 +53,11 @@
                 </div>
             </div>
         </div>
+        <script>
+            function regresar(){
+                window.history.back();
+            }
+        </script>
+        
     </body>
 </html>

@@ -1,59 +1,59 @@
+<%-- 
+    Document   : editar
+    Created on : 27 mar 2026, 8:10:26 a.m.
+    Author     : fer_g
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<!Doctype html>
 <html>
     <head>
-        <title>Murach's Java Servlets and JSP</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="utf-8">
+        <title>Murach's Java Servlets and JSP - Editar Usuarios</title>
         <!-- Latest compiled and minified CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
 
         <!-- Latest compiled JavaScript -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+        
     </head>
     <body>
         <div class='container mt-5'>
             <div class='row'>
-                <div class='col'>
-                    <h1>Join our email list</h1>
-                    <p>To join our email list, enter your name and email address below.</p>
+                <div class='col-lg-6'>
+                    <h1>Editar usuario</h1>
                 </div>
-            </div>
-        </div>
-
-        <div class="container">
-            <div class="row text-end">
-                <div class="col">                    
-                    <a href="emailList?action=listado" class="btn btn-info" role="button">Listado de Usuarios</a>
+                <div class='col-lg-6 text-end'>
+                    <button class="btn btn-info" role="button" onclick='regresar();'>Listado de Usuarios</button>
+                </div>
+                <div class='col'>
                     <hr>
                 </div>
             </div>
         </div>
-
+        
         <div class='container'>
             <div class='row'>
                 <div class='col'>
                     <form action='emailList' method='post' accept-charset="UTF-8">
-                        <input type="hidden" name="action" value="add">
+                        <input type="hidden" name="action" value="editar-usuario">
 
                         <div class='mb-3 mt-3'>
                             <label for="email" class="form-label">Email:</label>
-                            <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" required>
+                            <input type="email" class="form-control" id="email" 
+                                   placeholder="Enter email" name="email" value="${user.email}" required readonly>
                         </div>
 
                         <div class='mb-3 mt-3'>
                             <label for="first-name" class="form-label">First Name:</label>
-                            <input type="text" class="form-control" id="firstName" placeholder="Enter Name" name="firstName" required>
+                            <input type="text" class="form-control" id="firstName" 
+                                   placeholder="Enter Name" name="firstName" value="${user.firstName}" required>
                         </div>
 
                         <div class='mb-3 mt-3'>
                             <label for="last-name" class="form-label">Last Name:</label>
-                            <input type="text" class="form-control" id="lastName" placeholder="Enter Last Name" name="lastName" required>
+                            <input type="text" class="form-control" id="lastName" 
+                                   placeholder="Enter Last Name" name="lastName" value="${user.lastName}" required>
                         </div>
 
                         <button type="submit" class="btn btn-primary">Enviar</button>
@@ -61,5 +61,10 @@ and open the template in the editor.
                 </div>
             </div>
         </div>
+        <script>
+            function regresar(){
+                window.history.back();
+            }
+        </script>
     </body>
 </html>

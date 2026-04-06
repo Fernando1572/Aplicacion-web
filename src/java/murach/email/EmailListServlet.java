@@ -41,9 +41,41 @@ public class EmailListServlet extends HttpServlet {
         }
 
         // perform action and set URL to appropiate page
-        if (action.equals("join")) {
+        if (action.equals("join")) {            
             url = "/index.html";
-        } else if (action.equals("eliminar")) { //pide confirmación para eliminar el usuario
+        } else if(action.equals("modificar")){ //condicional para realizar modificaciones
+            //obtenemos el email pasado como parámetro
+            String email = request.getParameter("email");
+            
+            //creamos un objeto de tipo user y buscamos sus datos en la bd
+            User user = UserDB.findUserById(email);
+            
+            // establecemos el atributo user para mostrar sus datos en la página
+            request.setAttribute("user", user);           
+            
+            url = "/editar.jsp";
+        } else if (action.equals("editar-usuario")){ // se almacenan los cambios en la bd
+            String firstName = request.getParameter("firstName");
+            String lastName = request.getParameter("lastName");
+            String email = request.getParameter("email");
+
+           
+            // store data in User object and save User Object in database
+            User user = new User(firstName, lastName, email);
+            int result = UserDB.update(user);
+
+            //si resultado es mayor que 0 entonces se realizó con éxito la operación
+            if (result > 0) {
+                request.setAttribute("mensaje", "Los cambios han sido guardados");
+                request.setAttribute("user", user);
+                url = "/thanks.jsp"; // the "thanks" page
+            } else {
+                request.setAttribute("mensaje", "Hubo un problema al querer editar la información en la base de datos");
+                request.setAttribute("error", murach.data.Error.descripcion);
+                url = "/error.jsp";
+            }
+            
+        }else if (action.equals("eliminar")) { //pide confirmación para eliminar el usuario
             //obtenemos el email del usuario a eliminar
             String email = request.getParameter("email");
 
@@ -88,7 +120,7 @@ public class EmailListServlet extends HttpServlet {
             String lastName = request.getParameter("lastName");
             String email = request.getParameter("email");
 
-            System.out.println(lastName);
+           
             // store data in User object and save User Object in database
             User user = new User(firstName, lastName, email);
             int result = UserDB.insert(user);

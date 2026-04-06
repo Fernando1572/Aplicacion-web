@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        
+        <meta charset="utf-8">
         <title>Murach's Java Servlets and JSP</title>
         <!-- Latest compiled and minified CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -17,10 +17,10 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     </head>
     <body>
-        <div class='container'>
+        <div class='container mt-5'>
             <div class='row'>
                 <div class='col'>
-                    <h1 class='container'>Thanks for joining our email list</h1>                    
+                    <h1>Thanks for joining our email list</h1>                    
                 </div>
             </div>
         </div>
@@ -29,7 +29,7 @@
             <div class='row'>
                 <div class='col'>
                     <p>Here is the information that you entered:</p>
-
+                    <hr>
                     <label>Email:</label>
                     <span>${user.email}</span><br>
                     <label>Fist Name:</label>
